@@ -1,0 +1,40 @@
+filebeat.inputs:
+
+
+
+- type: log
+  enabled: true
+  paths:
+    - ./*.log
+    - /usr/src/app/demo.log
+    - /logs/*.log
+
+  # Change to true to enable this input configuration.
+
+
+  processors:
+    - dissect:
+        tokenizer: "%{agent.name} - %{memory|double} - %{cpu_load|double}"
+        field: "message"
+        target_prefix: "monitor"
+
+    # Paths that should be crawled and fetched. Glob based paths.
+
+
+setup.template.settings:
+  index.number_of_shards: 3
+
+
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: [ "http://${ELASTICSEARCH_HOST_PORT}" ]
+  username: ${ELASTIC_USERNAME}
+  password: ${ELASTIC_PASSWORD}
+
+# output.logstash:
+#   hosts: ["http://logstash:5044"]
+
+setup.kibana:
+  host: "http://kibana:5601"
+  username:  ${ELASTIC_USERNAME}
+  password: ${ELASTIC_PASSWORD}
