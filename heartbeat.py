@@ -5,7 +5,20 @@ def getusage():
     cpu=str(psutil.cpu_percent())
     memory=str(psutil.virtual_memory().percent)
     new_data = "{} - {} - {}".format(agent,memory, cpu)
-    return new_data
+    data = """
+<heartbeat>
+    <header>
+      <code>2000</code>
+      <origin>FrontEnd</origin>
+      <timestamp>2021-05-25T12:00:00+01:00</timestamp>
+    </header>
+    <body>
+      <nameService>Website</nameService>
+      <CPUload>5.63</CPUload>
+      <RAMload>86.13</RAMload>
+    </body>
+</heartbeat>"""
+    return data
 
 
 def main():
