@@ -7,7 +7,7 @@ f = open(filePath, "a")
 f.write('\n')
 f.close()
 print('waiting')
-time.sleep(25)
+time.sleep(60)
 print('stopped waiting')
 def main():
     connection = pika.BlockingConnection(
