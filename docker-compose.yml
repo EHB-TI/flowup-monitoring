@@ -2,7 +2,6 @@ version: '3.5'
 
 volumes:
   elasticsearch-data:
-  my-log-volume:
 
 secrets:
   elasticsearch.keystore:
@@ -11,13 +10,6 @@ secrets:
     file: ./secrets/elastic-certificates.p12
 
 services:
-  rabbitmq:
-    restart: unless-stopped
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - 5672:5672
-      - 15672:15672
   elasticsearch:
     build:
       context: elasticsearch/
@@ -30,7 +22,6 @@ services:
       ELASTIC_CLUSTER_NAME: ${ELASTIC_CLUSTER_NAME}
       ELASTIC_NODE_NAME: ${ELASTIC_NODE_NAME}
       ELASTIC_INIT_MASTER_NODE: ${ELASTIC_INIT_MASTER_NODE}
-      ELASTIC_DISCOVERY_SEEDS: ${ELASTIC_DISCOVERY_SEEDS}
       ES_JAVA_OPTS: -Xmx${ELASTICSEARCH_HEAP} -Xms${ELASTICSEARCH_HEAP}
       bootstrap.memory_lock: "true"
     volumes:
@@ -51,77 +42,6 @@ services:
       nofile:
         soft: 200000
         hard: 200000
-
-  logstash:
-    build:
-      context: logstash/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    restart: unless-stopped
-    volumes:
-      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
-    environment:
-      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
-      ELASTICSEARCH_HOST_PORT: ${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
-
-  filebeat:
-    build:
-      context: filebeat/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    restart: unless-stopped
-    command: ./filebeat -e --strict.perms=false
-    volumes:
-      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - my-log-volume:/logs/
-    environment:
-      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
-      ELASTICSEARCH_HOST_PORT: ${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
-  metricbeat:
-    build:
-      context: metricbeat/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    restart: unless-stopped
-    user: root
-    environment:
-      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
-      ELASTICSEARCH_HOST_PORT: ${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
-    command:
-      - -e
-      - --strict.perms=false
-    volumes:
-      - type: bind
-        source: ./metricbeat/config/metricbeat.yml
-        target: /usr/share/metricbeat/metricbeat.yml
-        read_only: true
-      - type: bind
-        source: /
-        target: /hostfs
-        read_only: true
-      - type: bind
-        source: /sys/fs/cgroup
-        target: /hostfs/sys/fs/cgroup
-        read_only: true
-      - type: bind
-        source: /proc
-        target: /hostfs/proc
-        read_only: true
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-        read_only: true
-  logging:
-    build:
-      context: script_logging/
-    restart: unless-stopped
-    volumes:
-      - my-log-volume:/logs/
-
 
   kibana:
     build:
