@@ -27,14 +27,15 @@ setup.template.settings:
 
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: [ "http://${ELASTICSEARCH_HOST_PORT}" ]
-  username: ${ELASTIC_USERNAME}
-  password: ${ELASTIC_PASSWORD}
+  hosts: [ "https://${ELASTICSEARCH_HOST_PORT}" ]
+  username: "${ELASTIC_USERNAME}"
+  password: "${ELASTIC_PASSWORD}"
+  ssl.verification_mode: none
 
-# output.logstash:
-#   hosts: ["http://logstash:5044"]
 
 setup.kibana:
-  host: "http://kibana:5601"
-  username:  ${ELASTIC_USERNAME}
-  password: ${ELASTIC_PASSWORD}
+  host: "https://${KIBANA_HOST_PORT}"
+  username: "${ELASTIC_USERNAME}"
+  password: "${ELASTIC_PASSWORD}"
+  ssl.verification_mode: none
+

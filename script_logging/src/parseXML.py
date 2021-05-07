@@ -17,6 +17,6 @@ def parse(data):
         return Heartbeat(str(0),str(0),str(0),str(0),str(0),str(0))
 
 def format(data):
-    new_data = "{} - {} - {} - {} - {}".format(data.origin, data.timestamp ,data.RAMload, data.CPUload, data.code)
+    new_data = "{}:{} - {} - {} - {} - {}".format(data.origin, data.nameService, data.timestamp ,data.RAMload, data.CPUload, data.code)
     return new_data
 

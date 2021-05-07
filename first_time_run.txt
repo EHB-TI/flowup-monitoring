@@ -1,2 +1,0 @@
-docker-compose -f docker-compose.setup.yml run --rm keystore
-docker-compose -f docker-compose.setup.yml run --rm certs

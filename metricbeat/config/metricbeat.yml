@@ -35,34 +35,22 @@ metricbeat.modules:
   hosts: "rabbitmq:5672"
   username: guest
   password: guest
- 
-
-#- module: logstash
-#  metricsets:
-#    - node
-#    - node_stats
-#  period: 10s
-#  hosts: ['localhost:9600']
-#  username: "elastic"
-#  password: "changeme"
-
 
 processors:
   - add_cloud_metadata: ~
 
 output.elasticsearch:
-  hosts: ["http://${ELASTICSEARCH_HOST_PORT}"]
-  username: ${ELASTIC_USERNAME}
-  password: ${ELASTIC_PASSWORD}
+  hosts: ["https://${ELASTICSEARCH_HOST_PORT}"]
+  username: "${ELASTIC_USERNAME}"
+  password: "${ELASTIC_PASSWORD}"
+  ssl.verification_mode: none
 
 setup.kibana:
-  host: "http://kibana:5601"
-  username:  ${ELASTIC_USERNAME}
-  password: ${ELASTIC_PASSWORD}
+  host: "${KIBANA_HOST_PORT}"
+  username: "${ELASTIC_USERNAME}"
+  password: "${ELASTIC_PASSWORD}"
+  ssl.verification_mode: none
 
-setup.dashboards.always_kibana: true #Only talk to Kibana, which is important for the retry
-setup.dashboards.retry.enabled: true
-setup.dashboards.enabled: true
 
 http.enabled: true
 http.host: 0.0.0.0
