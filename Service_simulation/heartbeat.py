@@ -22,7 +22,7 @@ def getusage():
 
 
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='10.3.56.6'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
     #channel.queue_declare(queue='hello')
     while(1):

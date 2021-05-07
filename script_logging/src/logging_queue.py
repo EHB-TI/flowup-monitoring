@@ -1,5 +1,8 @@
 import pika ,sys ,os ,time
 from parseXML import parse
+
+QUEUE_MONITORING = os.getenv('QUEUE_MONITORING', 'yo')
+print(QUEUE_MONITORING)
 filePath = "/logs/demo.log"
 if os.path.exists(filePath):
     os.remove(filePath)
@@ -9,11 +12,13 @@ f.close()
 print('waiting')
 time.sleep(60)
 print('stopped waiting')
+
+
 def main():
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host='rabbitmq'))
     channel = connection.channel()
-    channel.queue_declare(queue='monitoring')
+    channel.queue_declare(queue=QUEUE_MONITORING)
     def callback(ch, method, properties, body):
         print(" [x] Received %r" % body)
         f = open(filePath, "a")
@@ -21,7 +26,7 @@ def main():
         f.write(msg + '\n')
         f.close()
     channel.basic_consume(
-        queue='monitoring', on_message_callback=callback, auto_ack=True)
+        queue=QUEUE_MONITORING, on_message_callback=callback, auto_ack=True)
     channel.start_consuming()
     connection.close()
 
