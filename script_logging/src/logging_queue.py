@@ -1,7 +1,7 @@
 import pika ,sys ,os ,time
 from parseXML import parse
 
-QUEUE_MONITORING = os.getenv('QUEUE_MONITORING', 'yo')
+QUEUE_MONITORING = os.getenv('QUEUE_MONITORING', 'heartbeat')
 print(QUEUE_MONITORING)
 filePath = "/logs/demo.log"
 if os.path.exists(filePath):
@@ -9,9 +9,7 @@ if os.path.exists(filePath):
 f = open(filePath, "a")
 f.write('\n')
 f.close()
-print('waiting')
-time.sleep(60)
-print('stopped waiting')
+time.sleep(20)
 
 
 def main():
@@ -31,5 +29,10 @@ def main():
     connection.close()
 
 if __name__ == '__main__':
-    main()
+    while 1:
+        try:
+            main()
+        except:
+            print("Error, retrying in 5 seconds...")
+            time.sleep(5)
 

@@ -32,7 +32,7 @@ metricbeat.modules:
   metricsets: ["node", "queue", "connection"]
   enabled: true
   period: 10s
-  hosts: "rabbitmq:5672"
+  hosts: "rabbitmq:15672"
   username: guest
   password: guest
 
@@ -46,7 +46,7 @@ output.elasticsearch:
   ssl.verification_mode: none
 
 setup.kibana:
-  host: "${KIBANA_HOST_PORT}"
+  host: "https://${KIBANA_HOST_PORT}"
   username: "${ELASTIC_USERNAME}"
   password: "${ELASTIC_PASSWORD}"
   ssl.verification_mode: none
