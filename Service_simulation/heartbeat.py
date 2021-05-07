@@ -17,19 +17,18 @@ def getusage():
       <CPUload>{}</CPUload>
       <RAMload>{}</RAMload>
     </body>
-    </heartbeat>""".format(agent,datetime.now(), "",cpu, memory)
+    </heartbeat>""".format(agent,datetime.now(), "example",cpu, memory)
     return data
 
 
 def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
-    #channel.queue_declare(queue='hello')
     while(1):
         time.sleep(1)
         msg = getusage()
         channel.basic_publish(exchange='',
-                            routing_key='monitoring',
+                            routing_key='heartbeat',
                             body=msg, )
         print(" [x] Sent heartbeat")
     connection.close()

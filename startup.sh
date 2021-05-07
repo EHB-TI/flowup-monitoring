@@ -13,3 +13,5 @@ value=$(<./init/login.txt)
 echo "$value" | tee -a .env
 docker-compose down
 docker-compose up -d
+rm ./init/login.txt
+rm ./init/temp.txt
