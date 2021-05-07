@@ -14,7 +14,7 @@ filebeat.inputs:
 
   processors:
     - dissect:
-        tokenizer: "%{agent.name} - %{memory|double} - %{cpu_load|double}"
+        tokenizer: "%{agent.name|string} - %{timestamp|string} - %{memory|double} - %{cpu_load|double} - %{agent.code|string}"
         field: "message"
         target_prefix: "monitor"
 
