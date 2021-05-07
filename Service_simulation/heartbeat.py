@@ -34,4 +34,10 @@ def main():
         print(" [x] Sent heartbeat")
     connection.close()
 
-main()
+while(1):
+  try:
+    main()
+  except:
+    print("RMQ offline")
+    print("retrying in 5 seconds...")
+    time.sleep(5)
