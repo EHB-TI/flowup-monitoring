@@ -51,6 +51,9 @@ setup.kibana:
   password: "${ELASTIC_PASSWORD}"
   ssl.verification_mode: none
 
+setup.dashboards.always_kibana: true
+setup.dashboards.retry.enabled: true
+setup.dashboards.enabled: true
 
 http.enabled: true
 http.host: 0.0.0.0
