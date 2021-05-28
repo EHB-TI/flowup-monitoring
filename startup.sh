@@ -1,7 +1,7 @@
 sudo sysctl -w vm.max_map_count=262144
 sudo apt-get update
-sudo apt-get install python3-pip
-pip3 install -r ./requirements.txt
+python -m pip install --upgrade pip
+python -m pip install install -r ./requirements.txt
 docker-compose down -v
 file=".env"
 if [ -f "$file" ] ; then
@@ -9,7 +9,7 @@ if [ -f "$file" ] ; then
 fi
 cp .env.example .env
 cd init
-python3 initialise.py 
+python initialise.py 
 cd ..
 sed -i '$d' .env
 sed -i '$d' .env
