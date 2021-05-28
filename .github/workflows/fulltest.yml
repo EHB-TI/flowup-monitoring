@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: setup environment
       run: |
-        apt-get install dos2unix && dos2unix ./startup.sh && sudo bash ./startup.sh
+        sudo apt-get install dos2unix && sudo dos2unix ./startup.sh && sudo bash ./startup.sh
     - name: Test with pytest
       run: |
         sleep 20 && pytest test_containers.py
