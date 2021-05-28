@@ -1,4 +1,4 @@
-import pika ,sys ,os ,time, pytest
+import pika, pytest
 # command: python3 -m pytest test1.py
 
 QUEUE_MONITORING = 'QUEUE_MONITORING'
@@ -21,7 +21,7 @@ def test_rabbitmq_consume():
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host=RABBITMQ_HOST))
     channel = connection.channel()
-    
+
     for method_frame, properties, body in channel.consume(QUEUE_MONITORING):
         channel.basic_ack(method_frame.delivery_tag)
         assert body != None    
