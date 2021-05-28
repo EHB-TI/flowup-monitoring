@@ -33,5 +33,18 @@ def test_rabbitmq_consume():
     connection.close()
 
 
+def test_rabbitmq_connectivity():
+    # Check connectivity for management platform
+    URL = 'amqp://guest:guest@localhost:5672/%2F'
+    parameters = pika.URLParameters(URL)
+    try:
+        connection = pika.BlockingConnection(parameters)
+        assert connection.is_open
+            
+    except Exception as error:
+        print('Error:', error.__class__.__name__)
+        exit(1)
+
+
   
 
