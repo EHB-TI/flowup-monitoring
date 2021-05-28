@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: 3.7
 
     steps:
     - uses: actions/checkout@v2
@@ -37,8 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: setup environment
       run: |
-        sudo bash ./startup.sh
+        apt-get install dos2unix && dos2unix ./startup.sh && sudo bash ./startup.sh
     - name: Test with pytest
       run: |
-        sleep 20
-        pytest test_containers.py
+        sleep 20 && pytest test_containers.py
