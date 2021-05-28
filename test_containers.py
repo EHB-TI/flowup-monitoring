@@ -1,11 +1,5 @@
 import requests, docker, time, pytest
-
-def test_runningcontainers():
-    client = docker.from_env()
-    if client.containers.list(all=True):
-        assert client.containers.list(all=True).count() == 6
-    else:
-        assert False
+time.sleep(20)
 
 def test_es_running():
     count = 0
@@ -15,6 +9,14 @@ def test_es_running():
             response.status_code
             count = 11
             assert response.status_code == 401
+            break
         except:
             time.sleep(5)
             count += 1
+            
+def test_runningcontainers():
+    client = docker.from_env()
+    if client.containers.list(all=True):
+        assert len(client.containers.list(all=True)) == 6
+    else:
+        assert False
