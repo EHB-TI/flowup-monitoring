@@ -6,6 +6,10 @@ Om de hele service te opstarten is er maar een commando nodig:
 ```
 bash startup.sh
 ```
+## Updaten
+```
+bash update.sh
+```
 ## Stoppen
 ```
 docker-compose down
