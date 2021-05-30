@@ -2,3 +2,5 @@ requests
 docker
 six
 pytest
+yaml
+pika
