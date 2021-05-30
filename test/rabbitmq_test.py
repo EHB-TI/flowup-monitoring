@@ -26,15 +26,13 @@ def test_rabbitmq_consume():
         channel.basic_ack(method_frame.delivery_tag)
         assert body != None    
         if method_frame.delivery_tag == 1:
+            requeued_messages = channel.cancel()
+            channel.close()
+            connection.close()
             break
-
-    requeued_messages = channel.cancel()
-    channel.close()
-    connection.close()
 
 
 def test_rabbitmq_connectivity():
-    # Check connectivity for management platform
     URL = 'amqp://guest:guest@localhost:5672/%2F'
     parameters = pika.URLParameters(URL)
     try:
@@ -42,8 +40,7 @@ def test_rabbitmq_connectivity():
         assert connection.is_open
             
     except Exception as error:
-        print('Error:', error.__class__.__name__)
-        exit(1)
+        assert False
 
 
   

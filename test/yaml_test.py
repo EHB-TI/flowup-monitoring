@@ -6,7 +6,7 @@ def test_yaml_open():
             d = yaml.safe_load(f)
             assert d != None    
     except IOError:
-        print("File not accessible")
+        assert False
 
    
 def test_yaml_files_format():
@@ -21,13 +21,9 @@ def test_yaml_for_ELK():
     filepaths = []  
     for root, dirs, files in os.walk(dir_path):
         for file in files: 
-    
-            # change the extension from '.mp3' to 
-            # the one of your choice.
             if file.endswith('.yml'):
                 filepaths.append(root+'/'+str(file))
 
     for fp in filepaths:
-        # Split the extension from the path and normalise it to lowercase.
         ext = os.path.splitext(fp)[-1].lower()
         assert ext == ".yml"

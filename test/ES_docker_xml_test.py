@@ -1,5 +1,6 @@
-import requests, docker, pytest
-from parseXML import *
+import requests, docker, pytest, os, time
+# insert at 1, 0 is the script path (or '' in REPL)
+from ressources.parseXML import *
 
 def test_parse():
     xmltest = """
@@ -27,14 +28,10 @@ def test_runningcontainers():
         assert False
 
 def test_es_running():
-    count = 0
-    while count < 10:
+    for i in range(5):
         try:
             response = requests.get('https://localhost:9200', verify=False)
-            response.status_code
-            assert response.status_code == 401
             break          
         except:
-            time.sleep(5)
-            count += 1
-
+            time.sleep(3)
+    assert response.status_code == 401
