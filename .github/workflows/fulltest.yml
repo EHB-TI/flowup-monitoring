@@ -26,6 +26,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        sudo apt-get install python-yaml
+      run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest requests docker six
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
