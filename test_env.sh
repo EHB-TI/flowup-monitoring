@@ -3,6 +3,7 @@ file=".env"
 if [ -f "$file" ] ; then
     rm "$file"
 fi
+python -m pip install -r ./requirements.txt
 rm ./instances.yml
 cp ./inst_test.yml ./instances.yml
 cp .env.example .env

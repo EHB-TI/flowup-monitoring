@@ -7,7 +7,7 @@ for files in filePaths:
     if os.path.exists(files):
         os.remove(files)
 
-os.system("cd .. && docker-compose down")
+os.system("cd .. && docker-compose down -v")
 os.system("cd .. && sudo docker-compose -f create-certs.yml run --rm create_certs")
 os.system("cd .. && docker-compose up -d")
 print("waiting for ELK to start up...")
