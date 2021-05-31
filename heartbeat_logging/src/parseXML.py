@@ -1,5 +1,3 @@
-#in progress
-
 from xmlObject import Heartbeat
 import xml.etree.ElementTree as ET
 

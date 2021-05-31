@@ -1,9 +1,9 @@
 import pika ,sys ,os ,time
 from parseXML import parse
 
-QUEUE_MONITORING = os.getenv('QUEUE_MONITORING', 'heartbeat')
+QUEUE_MONITORING = os.getenv('QUEUE_LOGGING', 'logging')
 print(QUEUE_MONITORING)
-filePath = "/logs/demo.log"
+filePath = "/logs/logging.log"
 if os.path.exists(filePath):
     os.remove(filePath)
 f = open(filePath, "a")

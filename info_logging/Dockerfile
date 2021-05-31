@@ -2,4 +2,4 @@ FROM python:3.8
 WORKDIR /usr/src/app
 COPY ./src .
 RUN pip install -r requirements.txt
-CMD [ "python", "./logging_queue.py" ]
+CMD [ "python", "./logging_logs.py" ]
