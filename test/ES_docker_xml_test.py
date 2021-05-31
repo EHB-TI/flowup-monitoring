@@ -23,7 +23,7 @@ def test_parse():
 def test_runningcontainers():
     client = docker.from_env()
     if client.containers.list(all=True):
-        assert len(client.containers.list(all=True)) >= 6
+        assert len(client.containers.list(all=True)) >= 7
     else:
         assert False
 

@@ -10,4 +10,4 @@ def test_env_readable():
 
 def test_env_isExists():
     x= os.stat('.env').st_size
-    assert x == 1136
+    assert x == 1157
