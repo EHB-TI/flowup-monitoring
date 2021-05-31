@@ -29,9 +29,15 @@ instances:
       - localhost
     ip:
       - 10.3.56.6
-  - name: logging
+  - name: info_logging
     dns:
-      - logging
+      - info_logging
+      - localhost
+    ip:
+      - 10.3.56.6
+  - name: heartbeat_logging
+    dns:
+      - heartbeat_logging
       - localhost
     ip:
       - 10.3.56.6
