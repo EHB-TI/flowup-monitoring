@@ -6,8 +6,8 @@ seed(1)
 arrCode = [1000,2000,3000,4000,5000]
 arrOrigin = ["office", "AD", "Frontend", "Canvas"]
 def getusage():
-    code = arrCode[randint(0, 4)]
-    origin = arrOrigin[randint(0, 4)]
+    code = arrCode[randint(0, 3)]
+    origin = arrOrigin[randint(0, 3)]
     data = """
     <error>
   <header>
